@@ -1,4 +1,4 @@
-# shmenkins
+# AWS Lambda tests
 
 ## Initial setup
 
@@ -24,23 +24,3 @@ cfg | Configuration files
 
 All lambda functions are packaged into a single wheel. With minimal cold lambda penalty we don't need to worry about separating them yet.
 
-## AWS resources
-Single S3 bucket for everything.
-
-S3 bucket directory layout
-```
-s3_bucket
-├── branch_1
-│   ├── lambda.whl
-│   └── group_1
-│       ├── terraform.tfstate
-│       └── other_dependencies
-└── master
-    ├── lambda.whl
-    ├── group_1
-    │   ├── terraform.tfstate
-    │   └── other_dependencies
-    └── group_2
-        ├── terraform.tfstate
-        └── other_dependencies
-```

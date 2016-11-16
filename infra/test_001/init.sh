@@ -10,7 +10,7 @@ source terraform.tfvars
 terraform remote config \
     -backend=s3 \
     -backend-config="bucket=${s3_bucket}" \
-    -backend-config="key=${aws_resource_prefix}/repo_event_handler/terraform.tfstate" \
+    -backend-config="key=${aws_resource_prefix}/sync_lambda_invocation/terraform.tfstate" \
     -backend-config="region=${aws_region}"
 
 terraform get
