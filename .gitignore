@@ -16,6 +16,7 @@ bin
 *.metaconfig.cache
 
 # python
+*.pyc
 venv*
 build/
 dist/
