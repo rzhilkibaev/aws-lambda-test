@@ -57,15 +57,11 @@ resource "aws_lambda_function" "lambda" {
     timeout = "300"
 }
 
-resource "aws_lambda_permission" "allow_api_gateway_to_invoke_handle_webhook_lambda" {
+resource "aws_lambda_permission" "allow_another_lambda_to_invoke_this_lambda" {
     function_name = "${aws_lambda_function.lambda.function_name}"
-    statement_id = "AllowExecutionFromApiGateway"
+    statement_id = "AllowExecutionFromLambda"
     action = "lambda:InvokeFunction"
-    principal = "apigateway.amazonaws.com"
+    principal = "lambda.amazonaws.com"
     source_arn = "${var.invocation_source_arn }"
-    #source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account}:*/*/*/*"
 }
 
-output "function_arn" {
-    value = "${aws_lambda_function.lambda.arn}"
-}

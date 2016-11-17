@@ -44,6 +44,33 @@ resource "aws_api_gateway_integration_response" "integration_response" {
   depends_on = ["aws_api_gateway_integration.integration"]
 }
 
+resource "aws_api_gateway_method_response" "500" {
+  rest_api_id = "${var.rest_api_id}"
+  resource_id = "${aws_api_gateway_resource.resource.id}"
+  http_method = "${aws_api_gateway_method.method.http_method}"
+  status_code = "500"
+}
+
+resource "aws_api_gateway_integration_response" "integration_response_500" {
+  rest_api_id = "${var.rest_api_id}"
+  resource_id = "${aws_api_gateway_resource.resource.id}"
+  http_method = "${aws_api_gateway_method.method.http_method}"
+  status_code = "${aws_api_gateway_method_response.500.status_code}"
+  selection_pattern = "Error.*"
+  depends_on = ["aws_api_gateway_integration.integration"]
+}
+
+resource "aws_api_gateway_deployment" "deployment" {
+  depends_on = ["aws_api_gateway_method.method"]
+
+  rest_api_id = "${var.rest_api_id}"
+  stage_name = "test_001"
+
+  variables = {
+    "answer" = "44"
+  }
+}
+
 output "method_arn" {
   value = "arn:aws:execute-api:${var.aws_region}:${var.aws_account}:${var.rest_api_id}/*/${var.http_method}/${var.path_part}"
 }

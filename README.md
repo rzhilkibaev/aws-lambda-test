@@ -24,3 +24,7 @@ cfg | Configuration files
 
 All lambda functions are packaged into a single wheel. With minimal cold lambda penalty we don't need to worry about separating them yet.
 
+# Findings
+## Python
+
+- module is instantiated only once per new function instance during cold start, for subsequent requests the instance (being hot) uses the same module instance, with all variables initialized during the cold start

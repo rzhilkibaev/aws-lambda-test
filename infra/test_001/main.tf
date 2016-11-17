@@ -33,3 +33,15 @@ module "lambda_a" {
   lambda_wheel_s3_version = "${var.lambda_wheel_s3_version}"
   invocation_source_arn = "${module.endpoint_lambda_a.method_arn}"
 }
+
+module "lambda_b" {
+  source = "./modules/lambda_b"
+  function_name = "lambda_b"
+  aws_account = "${var.aws_account}"
+  aws_region = "${var.aws_region}"
+  aws_resource_prefix = "${var.aws_resource_prefix}"
+  s3_bucket = "${var.s3_bucket}"
+  lambda_wheel_filename = "${var.lambda_wheel_filename}"
+  lambda_wheel_s3_version = "${var.lambda_wheel_s3_version}"
+  invocation_source_arn = "${module.lambda_a.function_arn}"
+}

@@ -7,6 +7,8 @@ import boto3
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 instance_id_file_path = "/tmp/instance_id"
+instance_info = ""
+new_instance = ""
 
 def get_instance_info():
     instance_info = ""
@@ -36,11 +38,11 @@ def start(cold_seconds, hot_seconds):
         time.sleep(hot_seconds)
 
 
-instance_info = get_instance_info()
-new_instance = instance_info.startswith("new ")
-
 def handle_request(event, context):
     info("received request {}".format(event))
+
+    instance_info = get_instance_info()
+    new_instance = instance_info.startswith("new ")
 
     start(event.get("cold_seconds"), event.get("hot_seconds"))
 
