@@ -3,6 +3,7 @@ import time
 import os
 import uuid
 import boto3
+import json
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -37,12 +38,11 @@ def execute_command(command):
 
 def invoke_lambda(function_name, payload):
     info("invoking function " + function_name + " with payload " + str(payload))
-    payload_bytes = [elem.encode("hex") for elem in str(payload)]
     client = boto3.client('lambda')
     response = client.invoke(
             FunctionName=function_name,
             InvocationType="RequestResponse",
-            Payload=payload_bytes)
+            Payload=json.dumps(payload))
     info("invoked  function " + function_name + ", response " + str(response))
 
 

@@ -36,7 +36,8 @@ resource "aws_iam_role_policy" "lambda" {
         "Statement": [
             {
                 "Action": [
-                    "logs:*"
+                    "logs:*",
+                    "lambda:InvokeFunction"
                 ],
                 "Effect": "Allow",
                 "Resource": "*"
